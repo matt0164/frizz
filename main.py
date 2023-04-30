@@ -2,8 +2,12 @@ import tkinter as tk
 import requests
 import geocoder
 from tkinter import messagebox, PhotoImage
+import os
 
-API_KEY = "1f3e9a4a267c2bda8d92dd9fc8539e8b"
+from dotenv import load_dotenv
+load_dotenv()
+
+API_KEY = os.environ.get("API_KEY")
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
 def get_weather_by_zip():
@@ -25,12 +29,12 @@ def get_weather_by_zip():
             photo = PhotoImage(file="C:\\Users\\matta\\PycharmProjects\\NewFrizzApr23\\goodhair.png")
             result_label.config(image=photo)
             result_label.photo = photo
-            humidity_label.config(text="The humidity is " + str(humidity) + "% and the temperature is " + str(temperature) + "°F with wind speed " + str(wind_speed) + "mph.", font=("Helvetica", 14))
+            humidity_label.config(text=f"The humidity is {humidity}% and the temperature is {temperature}°F with a wind speed of {wind_speed} mph.", font=("Helvetica", 14))
         else:
             photo = PhotoImage(file="C:\\Users\\matta\\PycharmProjects\\NewFrizzApr23\\badhair.png")
             result_label.config(image=photo)
             result_label.photo = photo
-            humidity_label.config(text="The humidity is " + str(humidity) + "% and the temperature is " + str(temperature) + "°F with wind speed " + str(wind_speed) + "mph.", font=("Helvetica", 14))
+            humidity_label.config(text=f"The humidity is {humidity}% and the temperature is {temperature}°F with a wind speed of {wind_speed} mph.", font=("Helvetica", 14))
     else:
         messagebox.showerror("Error", "Could not retrieve weather data. Please try again later.")
 
@@ -51,21 +55,21 @@ def get_weather_by_location():
         wind_speed = round(wind_speed)
 
         if humidity < 50 and wind_speed < 10:
-            photo = PhotoImage(file="C:\\Users\\Karyn\\OneDrive\\Desktop\\goodhair.png")
+            photo = PhotoImage(file="C:\\Users\\matta\\PycharmProjects\\NewFrizzApr23\\goodhair.png")
             result_label.config(image=photo)
             result_label.photo = photo
 
-            humidity_label.config(text="The humidity is " + str(humidity) + "% and the temperature is " + str(temperature) + "°F with wind speed " + str(wind_speed) + "mph.", font=("Helvetica", 14))
+            humidity_label.config(text=f"The humidity is {humidity}% and the temperature is {temperature}°F with a wind speed of {wind_speed} mph.", font=("Helvetica", 14))
 
         else:
-            photo = PhotoImage(file="C:\\Users\\Karyn\\OneDrive\\Desktop\\badhair.png")
+            photo = PhotoImage(file="C:\\Users\\matta\\PycharmProjects\\NewFrizzApr23\\badhair.png")
             result_label.config(image=photo)
             result_label.photo = photo
 
-            humidity_label.config(text="The humidity is " + str(humidity) + "% and the temperature is " + str(temperature) + "°F with wind speed " + str(wind_speed) + "mph.", font=("Helvetica", 14))
+            humidity_label.config(text=f"The humidity is {humidity}% and the temperature is {temperature}°F with a wind speed of {wind_speed} mph.", font=("Helvetica", 14))
 
 root = tk.Tk()
-root.title("The Frizz Whizz - Your guide to how to wear your hair for today's weather")
+root.title("The Frizz Wiz - The ultimate tool how to wear your hair based on today's weather")
 root.geometry("1000x1000")
 
 zip_frame = tk.Frame(root)
