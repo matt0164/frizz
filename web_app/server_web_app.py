@@ -1,12 +1,18 @@
+from dotenv import load_dotenv
+import os
+
 import random
 
 from flask import Flask, render_template, request, jsonify
 from web_main import get_weather_by_zip, get_weather_by_location
 
+load_dotenv(dotenv_path="/var/www/NewFrizzApr23/.env")
+
 app = Flask(__name__)
 
 def random_color():
     return f"#{random.randint(0, 0xFFFFFF):06x}"
+
 
 @app.route('/location', methods=['POST'])
 def location():
@@ -17,12 +23,6 @@ def location():
     return jsonify(result=result, photo=photo)
 
 @app.route("/", methods=["GET", "POST"])
-def index():
-    result = None
-    photo = None
-    color1 = random_color()
-    color2 = random_color()
-
 def index():
     result = None
     photo = None

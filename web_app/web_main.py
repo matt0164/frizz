@@ -43,14 +43,7 @@ def get_weather_by_zip(zip_code):
 
 def get_weather_by_location():
         print("get_weather_by_location() called")
-        location = get_location()
-        result = None
-        photo = None
-        if location:
-            lat, lon = get_lat_lon_by_city(location)
-            if lat and lon:
-                result, photo = get_weather_by_lat_lng(lat, lon)
-        return result, photo
+        return None, None
 
 def get_lat_lon_by_city(city):
     results = geocoder.geocode(city)
