@@ -1,7 +1,12 @@
+from dotenv import load_dotenv
+import os
+
 import random
 
 from flask import Flask, render_template, request, jsonify
 from web_main import get_weather_by_zip, get_weather_by_location
+
+load_dotenv(dotenv_path="/var/www/NewFrizzApr23/.env")
 
 app = Flask(__name__)
 
@@ -23,12 +28,6 @@ def index():
     color1 = random_color()
     color2 = random_color()
 
-def index():
-    result = None
-    photo = None
-    color1 = random_color()
-    color2 = random_color()
-
     if request.method == "POST":
         weather_option = request.form.get("weather_option")
 
@@ -38,7 +37,7 @@ def index():
         elif weather_option == "location":
             result, photo = get_weather_by_location()
 
-    return render_template("index.html", result=result, photo=photo, color1=color1, color2=color2)
+    return render_template("index.html?v=2", result=result, photo=photo, color1=color1, color2=color2)
 
 if __name__ == "__main__":
     app.run(debug=True)

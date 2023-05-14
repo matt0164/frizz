@@ -9,10 +9,18 @@ function getLocation() {
             xhr.open('POST', '/location', true);
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhr.send(JSON.stringify({lat: latitude, lng: longitude}));
+
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    location.reload();
+                }
+            };
         });
     } else {
         alert("Geolocation is not supported by this browser.");
     }
 }
 
-window.addEventListener('load', getLocation);
+window.addEventListener('load', function() {
+    document.getElementById('location-btn').addEventListener('click', getLocation);
+});

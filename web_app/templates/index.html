@@ -27,11 +27,15 @@
     </style>
 
 </head>
-<body>
-    <h1>The Frizz Wiz - Enter Your Location</h1>
 
-    <form action="/" method="post">
-        <button type="submit" name="weather_option" value="location">Click Here to Run Using My Location</button>
+<script src="location.js"></script>
+
+<body>
+    <h1>The Frizz Wiz</h1>
+
+    <form id="location-form" action="/" method="post">
+
+        <button type="button" id="location-btn">Use GPS for My Location</button>
         <p>
             <label for="zip_code">ZIP Code:</label>
             <input type="text" id="zip_code" name="zip_code">
@@ -50,8 +54,6 @@
     {% endif %}
 </div>
 {% endif %}
-
-<script src="location.js"></script>
 
 </body>
 </html>
