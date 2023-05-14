@@ -37,7 +37,7 @@ def index():
         elif weather_option == "location":
             result, photo = get_weather_by_location()
 
-    return render_template("index.html?v=2", result=result, photo=photo, color1=color1, color2=color2)
+    return render_template("frizz_landing.html?v=2", result=result, photo=photo, color1=color1, color2=color2)
 
 if __name__ == "__main__":
     app.run(debug=True)
