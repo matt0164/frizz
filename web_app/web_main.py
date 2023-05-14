@@ -45,6 +45,7 @@ def get_weather_by_location():
         print("get_weather_by_location() called")
         return None, None
 
+
 def get_lat_lon_by_city(city):
     results = geocoder.geocode(city)
     if results:
