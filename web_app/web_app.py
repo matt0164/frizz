@@ -6,7 +6,7 @@ import random
 from flask import Flask, render_template, request, jsonify
 from web_main import get_weather_by_zip, get_weather_by_location
 
-load_dotenv(dotenv_path="/var/www/NewFrizzApr23/.env")
+load_dotenv(dotenv_path="/var/www/frizz/.env")
 
 app = Flask(__name__)
 
