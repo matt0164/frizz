@@ -1,0 +1,55 @@
+2023/05/15 09:46:11 [notice] 14509#14509: using inherited sockets from "6;7;"
+2023/05/15 09:47:22 [notice] 15194#15194: signal process started
+2023/05/15 09:47:24 [notice] 15196#15196: signal process started
+2023/05/15 09:47:27 [notice] 15198#15198: signal process started
+2023/05/15 09:47:28 [notice] 15200#15200: signal process started
+2023/05/15 09:51:57 [emerg] 15235#15235: directive "index" is not terminated by ";" in /etc/nginx/sites-enabled/default:48
+2023/05/15 09:52:41 [emerg] 15247#15247: unexpected "}" in /etc/nginx/sites-enabled/default:75
+2023/05/15 09:53:14 [warn] 15260#15260: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 09:56:11 [warn] 15284#15284: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 09:57:45 [warn] 15296#15296: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 09:57:58 [warn] 15301#15301: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 09:57:58 [notice] 15301#15301: signal process started
+2023/05/15 10:00:44 [warn] 15468#15468: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 10:00:49 [warn] 15473#15473: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/15 10:00:49 [notice] 15473#15473: signal process started
+2023/05/15 10:06:37 [error] 15474#15474: *11 connect() failed (111: Unknown error) while connecting to upstream, client: 52.167.144.67, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 10:15:51 [error] 15474#15474: *13 connect() failed (111: Unknown error) while connecting to upstream, client: 51.81.167.146, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "app.frizz-wiz.com"
+2023/05/15 11:06:26 [error] 15474#15474: *16 connect() failed (111: Unknown error) while connecting to upstream, client: 216.218.206.69, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 11:18:58 [error] 15474#15474: *21 connect() failed (111: Unknown error) while connecting to upstream, client: 167.94.146.58, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/15 11:18:58 [error] 15474#15474: *23 connect() failed (111: Unknown error) while connecting to upstream, client: 167.94.146.58, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 11:53:17 [error] 15474#15474: *30 connect() failed (111: Unknown error) while connecting to upstream, client: 178.128.152.119, server: app.frizz-wiz.com, request: "GET / HTTP/1.0", upstream: "http://127.0.0.1:8000/", host: "localhost:8080"
+2023/05/15 12:10:24 [error] 15474#15474: *32 connect() failed (111: Unknown error) while connecting to upstream, client: 71.6.135.131, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 15:54:24 [error] 15474#15474: *47 connect() failed (111: Unknown error) while connecting to upstream, client: 198.199.92.66, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 16:31:06 [error] 15474#15474: *51 connect() failed (111: Unknown error) while connecting to upstream, client: 143.198.42.86, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 16:31:07 [error] 15474#15474: *57 connect() failed (111: Unknown error) while connecting to upstream, client: 143.198.42.86, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 16:38:40 [error] 15474#15474: *62 connect() failed (111: Unknown error) while connecting to upstream, client: 202.184.44.126, server: app.frizz-wiz.com, request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 17:02:55 [error] 15474#15474: *66 connect() failed (111: Unknown error) while connecting to upstream, client: 179.43.177.243, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/15 17:37:49 [error] 15474#15474: *72 connect() failed (111: Unknown error) while connecting to upstream, client: 23.98.133.164, server: app.frizz-wiz.com, request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 18:05:26 [error] 15474#15474: *76 connect() failed (111: Unknown error) while connecting to upstream, client: 59.45.143.3, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 19:04:47 [error] 15474#15474: *85 connect() failed (111: Unknown error) while connecting to upstream, client: 198.235.24.86, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/15 20:01:12 [error] 15474#15474: *89 connect() failed (111: Unknown error) while connecting to upstream, client: 198.235.24.252, server: app.frizz-wiz.com, request: "GET / HTTP/1.0", upstream: "http://127.0.0.1:8000/"
+2023/05/15 21:58:14 [error] 15474#15474: *107 connect() failed (111: Unknown error) while connecting to upstream, client: 52.167.144.67, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 22:20:28 [error] 15474#15474: *109 connect() failed (111: Unknown error) while connecting to upstream, client: 192.155.90.118, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/15 23:53:41 [error] 15474#15474: *116 connect() failed (111: Unknown error) while connecting to upstream, client: 117.243.207.10, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/15 23:53:41 [error] 15474#15474: *117 connect() failed (111: Unknown error) while connecting to upstream, client: 117.243.207.10, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/16 00:08:22 [error] 15474#15474: *123 connect() failed (111: Unknown error) while connecting to upstream, client: 185.253.162.3, server: app.frizz-wiz.com, request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 00:09:27 [error] 15474#15474: *126 connect() failed (111: Unknown error) while connecting to upstream, client: 193.56.29.136, server: app.frizz-wiz.com, request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 00:41:08 [error] 15474#15474: *128 connect() failed (111: Unknown error) while connecting to upstream, client: 85.93.202.133, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 00:41:09 [error] 15474#15474: *128 connect() failed (111: Unknown error) while connecting to upstream, client: 85.93.202.133, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 01:45:55 [error] 15474#15474: *133 connect() failed (111: Unknown error) while connecting to upstream, client: 103.9.134.247, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/16 02:27:13 [error] 15474#15474: *136 connect() failed (111: Unknown error) while connecting to upstream, client: 152.89.196.144, server: app.frizz-wiz.com, request: "GET /?XDEBUG_SESSION_START=phpstorm HTTP/1.1", upstream: "http://127.0.0.1:8000/?XDEBUG_SESSION_START=phpstorm", host: "184.168.30.145:80"
+2023/05/16 02:28:08 [error] 15474#15474: *138 connect() failed (111: Unknown error) while connecting to upstream, client: 124.156.223.97, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 03:33:13 [error] 15474#15474: *142 connect() failed (111: Unknown error) while connecting to upstream, client: 94.102.61.10, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 04:42:56 [error] 15474#15474: *146 connect() failed (111: Unknown error) while connecting to upstream, client: 66.240.236.109, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 04:58:12 [error] 15474#15474: *150 connect() failed (111: Unknown error) while connecting to upstream, client: 185.141.110.139, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 07:41:19 [error] 15474#15474: *156 connect() failed (111: Unknown error) while connecting to upstream, client: 128.14.209.162, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 08:16:49 [error] 15474#15474: *160 connect() failed (111: Unknown error) while connecting to upstream, client: 190.57.170.16, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/16 08:17:26 [error] 15474#15474: *163 connect() failed (111: Unknown error) while connecting to upstream, client: 162.246.16.194, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145:80"
+2023/05/16 08:20:12 [error] 15474#15474: *166 connect() failed (111: Unknown error) while connecting to upstream, client: 96.232.203.113, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 08:34:13 [error] 15474#15474: *168 connect() failed (111: Unknown error) while connecting to upstream, client: 79.124.49.78, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "example.com"
+2023/05/16 09:03:52 [error] 15474#15474: *172 connect() failed (111: Unknown error) while connecting to upstream, client: 202.184.44.126, server: app.frizz-wiz.com, request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 09:16:37 [warn] 29171#29171: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/16 09:16:37 [warn] 29173#29173: conflicting server name "app.frizz-wiz.com" on 0.0.0.0:80, ignored
+2023/05/16 09:16:54 [error] 29175#29175: *1 connect() failed (111: Unknown error) while connecting to upstream, client: 96.232.203.113, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
+2023/05/16 09:25:31 [error] 29175#29175: *4 connect() failed (111: Unknown error) while connecting to upstream, client: 217.70.173.131, server: app.frizz-wiz.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "184.168.30.145"
