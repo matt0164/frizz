@@ -1,0 +1,67 @@
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# https://www.nginx.com/resources/wiki/start/
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+# https://wiki.debian.org/Nginx/DirectoryStructure
+#
+# In most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+# Server configuration
+
+# This block of code is for http (port 80) traffic. It will automatically redirect all http requests to https
+server {
+    listen 80; # Server listens on port 80
+    server_name app.frizz-wiz.com; # The server name is app.frizz-wiz.com
+
+    location / {
+        # Redirects all traffic to https
+        return 301 https://$host$request_uri;
+    }
+}
+
+# This block of code is for https (port 443) traffic
+server {
+    listen 443 ssl; # Server listens on port 443 for SSL encrypted traffic
+    server_name app.frizz-wiz.com; # The server name is app.frizz-wiz.com
+
+    # Location of the SSL certificate and key files
+    ssl_certificate /etc/letsencrypt/live/app.frizz-wiz.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/app.frizz-wiz.com/privkey.pem;
+
+    # Default location for all URIs
+    location / {
+        include proxy_params; # Includes parameters for the proxy_pass
+        proxy_pass http://127.0.0.1:8000;
+        # Proxy traffic to the unix socket where your gunicorn server is listening
+        # proxy_pass http://unix:/tmp/frizz/frizz.sock;
+    }
+    
+    # Special location for the favicon, used by browsers for the icon in the tab
+    location = /favicon.ico { 
+        access_log off; # Don't log access to the favicon
+        log_not_found off; # Don't log if the favicon isn't found
+    }
+
+    # Location block for /static/ URIs
+    location /static/ {
+        root /var/www/frizz; # The root directory for these requests is /var/www/frizz
+    }
+}
+
+
+#After updating config above be sure to test nginx and restart Nginx
+#sudo nginx -t
+#sudo systemctl restart nginx
+
+
+
