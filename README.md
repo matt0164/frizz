@@ -1,3 +1,4 @@
+Frizz-Wiz v0.01 - June 18th Version with working GPS and "new slider" - main as of June 24
 Frizz-Wiz Application Documentation
 Overview
 Frizz-Wiz is a web application running on an Nginx server. The application is configured to be accessible from the internet via the domain names frizz-wiz.com and www.frizz-wiz.com.
