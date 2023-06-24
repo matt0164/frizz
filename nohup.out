@@ -1,0 +1,15 @@
+[2023-05-28 08:23:52 +0000] [83610] [INFO] Starting gunicorn 20.1.0
+[2023-05-28 08:23:52 +0000] [83610] [INFO] Listening at: http://127.0.0.1:8000 (83610)
+[2023-05-28 08:23:52 +0000] [83610] [INFO] Using worker: sync
+[2023-05-28 08:23:52 +0000] [83611] [INFO] Booting worker with pid: 83611
+[2023-05-28 08:23:52 +0000] [83612] [INFO] Booting worker with pid: 83612
+[2023-05-28 08:23:52 +0000] [83613] [INFO] Booting worker with pid: 83613
+[2023-05-28 08:23:52 +0000] [83614] [INFO] Booting worker with pid: 83614
+[2023-05-28 08:33:38 +0000] [83611] [INFO] Parent changed, shutting down: <Worker 83611>
+[2023-05-28 08:33:38 +0000] [83611] [INFO] Worker exiting (pid: 83611)
+[2023-05-28 08:33:38 +0000] [83612] [INFO] Parent changed, shutting down: <Worker 83612>
+[2023-05-28 08:33:38 +0000] [83612] [INFO] Worker exiting (pid: 83612)
+[2023-05-28 08:33:39 +0000] [83613] [INFO] Parent changed, shutting down: <Worker 83613>
+[2023-05-28 08:33:39 +0000] [83613] [INFO] Worker exiting (pid: 83613)
+[2023-05-28 08:33:40 +0000] [83614] [INFO] Parent changed, shutting down: <Worker 83614>
+[2023-05-28 08:33:40 +0000] [83614] [INFO] Worker exiting (pid: 83614)
