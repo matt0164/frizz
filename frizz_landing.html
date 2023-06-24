@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frizz Wiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, {{ color1 }}, {{ color2 }});
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form, div {
+            width: 80%;
+            text-align: center;
+        }
+        img {
+            height: auto;
+            object-fit: cover;
+        }
+        #location-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+        #zip_code, #zip_code_label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #submit-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        #weather_photo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        #resultDiv {
+            display: none;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/new_slider.css') }}">
+
+</head>
+
+<body>
+    <h1>The Frizz Wiz</h1>
+
+    <form id="locationForm" method="post" action="javascript:void(0);">
+
+        <input id="lat" name="lat" type="hidden">
+        <input id="lon" name="lon" type="hidden">
+
+        <button id="location-btn" type="button">Get My Hair Forecast</button>
+
+    </form>
+
+    <div id="resultDiv">
+        <h2>Results:</h2>
+        <p id="weather_result"></p>
+        <img id="weather_photo" alt="Hair Day Image" style="display: none;">
+    </div>
+
+    <p> </p>
+
+
+    <div id="slider-container">
+        <div id="time-range">
+            <p>Time Range: <span class="slider-time"></span> - <span class="slider-time2"></span></p>
+            <div class="sliders_step1">
+                <div id="slider-range"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='new_slider.js') }}"></script>
+    <script src="{{ url_for('static', filename='fetch_forecast.js') }}"></script>
+    <script src="{{ url_for('static', filename='location.js') }}"></script>
+
+</body>
+</html>
