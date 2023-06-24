@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frizz Wiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, {{ color1 }}, {{ color2 }});
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form, div {
+            width: 80%;
+            text-align: center;
+        }
+        img {
+            height: auto;
+            object-fit: cover;
+        }
+        #location-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+        #zip_code, #zip_code_label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #submit-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        #weather_photo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        #resultDiv {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>The Frizz Wiz</h1>
+
+    <form id="locationForm" method="post" action="javascript:void(0);">
+
+        <input id="lat" name="lat" type="hidden">
+        <input id="lon" name="lon" type="hidden">
+
+        <button id="location-btn" type="button">Get My Hair Forecast</button>
+
+    </form>
+
+    <div id="resultDiv">
+        <h2>Results:</h2>
+        <p id="weather_result"></p>
+        <img id="weather_photo" alt="Hair Day Image" style="display: none;">
+    </div>
+
+    <label for="start_hour">Start Hour:</label>
+    <input type="range" id="start_hour" name="start_hour" min="0" max="23" value="10">
+    <span id="start_hour_label"></span>
+
+    <label for="end_hour">End Hour:</label>
+    <input type="range" id="end_hour" name="end_hour" min="0" max="23" value="15">
+    <span id="end_hour_label"></span>
+
+    <p>Start Hour: <span id="start_hour_display"></span></p>
+    <p>End Hour: <span id="end_hour_display"></span></p>
+
+    <!-- Load fetch_forecast.js before location.js -->
+    <script src="{{ url_for('static', filename='sliders.js') }}"></script>
+    <script src="{{ url_for('static', filename='fetch_forecast.js') }}"></script>
+    <script src="{{ url_for('static', filename='location.js') }}"></script>
+
+</body>
+</html>
