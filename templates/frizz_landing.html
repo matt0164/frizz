@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frizz Wiz</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,40 +21,135 @@
             text-align: center;
         }
         img {
-        max-width: 100%;
-        height: auto;
-        object-fit: cover;
+            height: auto;
+            object-fit: cover;
+        }
+        #location-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+        #zip_code, #zip_code_label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #submit-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        #weather_photo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        #resultDiv {
+            display: none;
         }
     </style>
 
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="location.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/new_slider.css') }}">
+
+</head>
 
 <body>
     <h1>The Frizz Wiz</h1>
 
-    <form id="location-form" action="/" method="post">
+    <form id="locationForm" method="post" action="javascript:void(0);">
 
-        <button type="button" id="location-btn">Use GPS for My Location</button>
-        <p>
-            <label for="zip_code">ZIP Code:</label>
-            <input type="text" id="zip_code" name="zip_code">
-            <button type="submit" name="weather_option" value="zip_code">Or Enter a Zip Code & Click Here</button>
-        </p>
+        <input id="lat" name="lat" type="hidden">
+        <input id="lon" name="lon" type="hidden">
 
+        <button id="location-btn" type="button">Get My Hair Forecast</button>
 
     </form>
 
-{% if result %}
-<div>
-    <h2>Results:</h2>
-    <p>{{ result }}</p>
-    {% if photo %}
-    <img src="{{ photo }}" alt="Hair Day Image" width="300">
-    {% endif %}
-</div>
-{% endif %}
+    <div id="resultDiv">
+        <h2>Results:</h2>
+        <p id="weather_result"></p>
+        <img id="weather_photo" alt="Hair Day Image" style="display: none;">
+    </div>
+
+    <p> </p>
+
+
+    <div id="slider-container">
+        <div id="time-range">
+            <p>Time Range: <span class="slider-time"></span> - <span class="slider-time2"></span></p>
+            <div class="sliders_step1">
+                <div id="slider-range"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='new_slider.js') }}"></script>
+    <script src="{{ url_for('static', filename='fetch_forecast.js') }}"></script>
+    <script src="{{ url_for('static', filename='location.js') }}"></script>
+
+<script>
+
+    // update this function to make an AJAX POST request to your backend
+    function updateTimeRange() {
+
+        let timeRange = $('#slider-range').slider("values");
+
+        $.ajax({
+            url: '/location',  // or '/weather'
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'start_hour': timeRange[0],
+                'end_hour': timeRange[1],
+                'lat': $('#lat').val(),
+                'lon': $('#lon').val(),
+                'weather_option': 'location'  // or 'zip'
+            }),
+            dataType: 'json',
+            success: function(response) {
+                // update your UI here based on the response
+                // for example, update the weather forecast and image
+                $('#weather_result').text(response.result);
+                $('#weather_photo').attr('src', response.photo);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // call updateTimeRange() when the slider values change
+    $('#slider-range').on('slidechange', function(event, ui) {
+        updateTimeRange();
+    });
+
+</script>
+
+<script>
+    $(function() {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 24,
+            values: [9, 15],
+            slide: function(event, ui) {
+                $(".slider-time").text(ui.values[0]);
+                $(".slider-time2").text(ui.values[1]);
+            },
+            change: updateTimeRange // Call updateTimeRange when slider values change
+        });
+    });
+</script>
+
 
 </body>
 </html>
