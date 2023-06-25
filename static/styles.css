@@ -1,0 +1,53 @@
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form, div {
+            width: 80%;
+            text-align: center;
+        }
+        img {
+            height: auto;
+            object-fit: cover;
+        }
+        #location-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+        #zip_code, #zip_code_label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #submit-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        #weather_photo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        #resultDiv {
+            display: none;
+        }
+    </style>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Frizz Wiz - Alpha v 0.02</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1>The Frizz Wiz - Alpha v 0.02</h1>
+
+    <form id="locationForm" method="post" action="javascript:void(0);">
+
+        <input id="lat" name="lat" type="hidden">
+        <input id="lon" name="lon" type="hidden">
+
+        <button id="location-btn" type="button">Get My Hair Forecast</button>
+
+    </form>
+
+    <div id="resultDiv">
+        <h2>Results:</h2>
+        <p id="weather_result"></p>
+        <img id="weather_photo" alt="Hair Day Image" style="display: none;">
+    </div>
+
+    <body style="background: linear-gradient(to right, {{ color1 }}, {{ color2 }});">
+
+    <p> </p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='location.js') }}"></script>
+
+</body>
+</html>
