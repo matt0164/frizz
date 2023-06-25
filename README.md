@@ -1,42 +1,27 @@
-Frizz-Wiz v0.01 - June 18th Version with working GPS and "new slider" - main as of June 24
 Frizz-Wiz Application Documentation
+Version 0.02 running with GPS as of 6/24/23 and without slider 
 Overview
-Frizz-Wiz is a web application running on an Nginx server. The application is configured to be accessible from the internet via the domain names frizz-wiz.com and www.frizz-wiz.com.
+Frizz-Wiz is a web application running on an Nginx server. The application is configured to be accessible from the internet via app.frizz-wiz.com with the domain names frizz-wiz.com and www.frizz-wiz.com.
 The Application Code
 The Components
-1.	Python Scripts: Various Python scripts are used in the Frizz Wiz application to handle different tasks. These scripts include functions for retrieving weather data, geolocation information, and slider-based time selection. They interact with external APIs, such as OpenWeatherMap to fetch weather data and geolocation details. The scripts are called by the Flask application to provide the necessary data for rendering the web pages.
-2.	HTML Templates: The HTML templates define the structure and content of the web pages displayed to users. They utilize template engines, such as Jinja2, to dynamically insert data retrieved from the Python scripts. The templates include forms for user input, sliders for time selection, display weather results, and render appropriate images based on weather conditions.
-3.	JavaScript: Multiple JavaScript files are used to handle the UI interactivity, geolocation functionality, and to make AJAX requests to the server. These include the new_slider.js for time selection via sliders, fetch_forecast.js to fetch weather data based on slider selection, and location.js to get current latitude and longitude using browser's GPS.
+1.	Python Scripts: Two Python scripts are used in the Frizz Wiz application. These scripts include functions for retrieving weather data and geolocation information. They interact with an external APIs, OpenWeatherMap, to fetch weather data and geolocation details. The scripts are called by the Flask application to provide the necessary data for rendering the web pages.
+2.	HTML Template: The HTML template defines the structure and content of the web pages displayed to users. It utilizes template engines to dynamically insert data retrieved from the Python scripts. The template displays weather results, and renders images and text based on the weather conditions (humidity and dew point impacting a user’s hair). It is formatted based on a css style template.
+3.	JavaScript: Two JavaScript files are used to handle the UI interactivity, geolocation functionality, and to make AJAX requests to the server. fetch_forecast.js fetches weather data, and location.js gets the current latitude and longitude using browser's GPS.
 4.	Gunicorn Configuration and Error Logs: Gunicorn is a Python WSGI HTTP Server that serves the Flask application. The configuration file specifies server settings such as the number of worker processes, bind address, and log file locations. The error logs capture any errors or exceptions that occur during the server's operation, providing valuable information for debugging and troubleshooting.
 5.	Flask Application: The Flask application is the core of the Frizz Wiz web server. It handles incoming HTTP requests and generates appropriate responses. The application consists of routes that define the URL endpoints and associated functions to handle the requests. It also utilizes templates to render dynamic HTML pages and JavaScript files for the interactivity of the pages. The application interacts with the Gunicorn server to serve the web pages to clients.
 6.	Gunicorn Server: Gunicorn is responsible for running the Flask application as a web server. It listens for incoming requests and dispatches them to the appropriate Flask route for processing. The server configuration determines how the server operates, including the number of worker processes, concurrency model, and network settings.
-7.	Waitress Server: Waitress is an alternative WSGI server to Gunicorn. It can be used to run the Flask application instead of Gunicorn. It provides similar functionality but with different configuration options. The Waitress server listens for incoming requests and routes them to the Flask application.
  
-By combining these components, the Frizz Wiz application functions as a web server that receives user input, retrieves weather data, and dynamically renders HTML pages with the corresponding information. The server (Gunicorn or Waitress) listens for incoming requests and directs them to the Flask application, which utilizes Python scripts and HTML templates to process the requests and generate the appropriate responses. The end result is a user-friendly interface where users can retrieve weather information based on zip codes or their current location.
+By combining these components, the Frizz Wiz application functions as a web server that receives user input, retrieves weather data, and dynamically renders HTML pages with the corresponding information. The server (Gunicorn) listens for incoming requests and directs them to the Flask application, which utilizes Python scripts and HTML templates to process the requests and generate the appropriate responses. The end result is a user-friendly interface where users can retrieve weather information based on zip codes or their current location.
 
+[graphic available in word file]
 
-
-
-
-
-
-
-
-
-
-
-
-
-1.	web_app.py: This Python file serves as the entry point for the Flask application. It imports the necessary modules, sets up the Flask app, defines the routes, and handles the logic for retrieving weather data based on zip code or location. The routes interact with the HTML templates by rendering them and passing data from the Python scripts to be displayed dynamically. Additionally, it interacts with JavaScript files by receiving data via AJAX requests and triggering updates on the web page.
-2.	weather_fetch.py: This Python file contains functions for fetching weather data from external APIs based on zip codes, location coordinates, or time selection. The get_weather_by_coordinates() function retrieves weather data using the OpenWeatherMap API and performs calculations to determine the weather forecast. The get_weather_by_zip() function does the same but uses zip codes to convert to latitude and longitude coordinates. These functions return the weather result and photo URL to be displayed in the HTML templates.
-3.	frizz_landing.html: This HTML template is the main page of the Frizz Wiz application. It includes a form where users can enter a zip code or click a button to use geolocation. The form also includes a slider for users to select a time range for the weather forecast. It submits a POST request to the / route in the Flask application. It also includes placeholders for displaying the weather result, photo, and dynamically generated colors. The template interacts with the Python script web_app.py by receiving the weather result and photo data to be rendered in the appropriate sections.
-4.	new_slider.js: This JavaScript file is responsible for creating and handling the functionality of a slider that allows users to select a time range for the weather forecast. It interacts with the HTML templates to dynamically update the displayed time range based on user interaction with the slider.
-5.	fetch_forecast.js: This JavaScript file sends the chosen time range and location details (either GPS coordinates or zip code) to the Flask app via an AJAX POST request. Upon receiving a successful response, it updates the weather forecast and the photo on the page. It interacts with both web_app.py and web_main.py to fetch and display updated weather forecasts.
-6.	location.js: This JavaScript file is responsible for handling geolocation functionality in the web page. It checks if the browser supports geolocation and, if so, retrieves the current latitude and longitude coordinates. It then sends this data to the server using an AJAX request to the /location route. Upon receiving a successful response (status code 200), it triggers a fetch for updated weather information based on the current location. This file interacts with web_app.py and fetch_forecast.py through the AJAX request and response handling.
-7.	update_hour_display.js: This JavaScript file handles the real-time update of the hour display in the Frizz Wiz application. The updateHourDisplay function, called upon page load and whenever the start or end hour values are changed, fetches these values, transforms them into date objects, and then displays them. This setup ensures an interactive and responsive user experience.
-8.	style.css: This is a stylesheet that dictates the aesthetic and layout for the Frizz Wiz web app. It defines styles for various elements, such as the body and range slider, to ensure an intuitive and visually appealing user interface. Customizations include font family, background, and flex container setup for the entire application, specific paragraph styles within the time-range div, and styles for the range slider's bar, handle, and layout dimensions.
+1.	web_app.py: This Python file serves as the entry point for the Flask application. It imports the necessary modules, sets up the Flask app, defines the routes, and handles the logic for retrieving weather data based on location. The routes interact with the HTML templates by rendering them and passing data from the Python scripts to be displayed dynamically. Additionally, it interacts with JavaScript files by receiving data via AJAX requests and triggering updates on the web page.
+2.	weather_fetch.py: This Python file contains functions for fetching weather data from external APIs based on location coordinates and time selection. The get_weather() function retrieves weather data using the OpenWeatherMap API and performs calculations to determine the weather forecast. The function returns the weather result and photo URL to be displayed in the HTML templates.
+3.	frizz_landing.html: This HTML template is the main page of the Frizz Wiz application. It includes a form where a user can click a button to use geolocation. It also includes placeholders for displaying the weather result, photo, and dynamically generated colors. The template interacts with the Python script web_app.py by receiving the weather result and photo data to be rendered in the appropriate sections.
+4.	fetch_forecast.js: This JavaScript file sends the chosen time range and location details (GPS coordinates) to the Flask app via an AJAX POST request. Upon receiving a successful response, it updates the weather forecast and the photo on the page. It interacts with both web_app.py and weather_fetch.py to fetch and display updated weather forecasts.
+5.	location.js: This JavaScript file is responsible for handling geolocation functionality in the web page. It checks if the browser supports geolocation and, if so, retrieves the current latitude and longitude coordinates. It then sends this data to the server using an AJAX request to the /weather route. Upon receiving a successful response (status code 200), it triggers a fetch for updated weather information based on the current location. This file interacts with web_app.py and weather_fetch.py through the AJAX request and response handling.
+6.	style.css: This is a stylesheet that dictates the aesthetic and layout for the Frizz Wiz web app. It defines styles for various elements, such as the body and header, to ensure an intuitive and visually appealing user interface. Customizations include font family, background, and flex container setup for the entire application, and layout dimensions.
 These files work together to create a seamless user experience. The Python scripts fetch weather data and perform calculations, the JavaScript files handle geolocation functionality and user-selected time ranges, and the HTML template displays the content dynamically based on user input and retrieved data from the Python scripts.
-
 
 Updating Application Code
 To update the application, you commit your changes to a version control system (like Git), then pull or checkout the updated code on the server.
@@ -44,43 +29,36 @@ Depending on the nature of the updates, you may need to restart the application 
 Uploading Code to the Server
 You can upload code to the server using scp (secure copy), rsync, or any other file transfer method. If you use Git, you can simply git pull the latest version of your code on the server.
  
-web_app.py or local_web_app.py (local test environment)
-This module serves as the main entry point for a Flask-based web application, which fetches weather data based on user-inputted parameters. It supports both POST and GET requests on multiple endpoints. The web_app.py file is an alternative version of the local_web_app.py that is designed to be run on a web server.
-The create_app() function initializes the Flask application, sets up CORS, and defines several routes. Notable routes include:
-1.	The / route serves the homepage, handles POST requests to fetch weather data based on coordinates or zip code, and stores fetched data in session variables. The page background color is randomly generated.
-2.	The /weather_general route handles POST requests by delegating to a function that fetches weather data either by coordinates or zip code.
-3.	The /weather route takes POST requests and fetches weather data based on either zip code or coordinates depending on the 'weather_option' provided in the request. It returns error messages for missing or invalid parameters.
-4.	The /location route accepts POST requests, uses received latitude and longitude to fetch weather data, and stores it in session variables. The route then redirects to the index page.
+web_app.py
+This module serves as the main entry point for a Flask-based web application, which fetches weather data based on user-inputted parameters. It supports both POST and GET requests on multiple endpoints. The web_app.py file is designed to be run on a web server.
+1.	The / route serves the homepage, handles POST requests to fetch weather data based on coordinates, and stores fetched data in session variables. The page background color is randomly generated.
+2.	The /weather route takes POST requests and fetches weather data based on lat long coordinates. It returns error messages for missing or invalid parameters.
 If the module is run as the main script, the Flask application is started.
-Key external functions used in this module include get_weather_by_zip, get_weather_by_coordinates, and get_weather_by_coordinates_or_zip from a module named weather_fetch.
+The external function used in this module is get_weather from a module named weather_fetch.py.
 The application requires two environment variables - a "SECRET_KEY" used by Flask for session management and potentially a "SESSION_KEY" - although the code does not seem to use the latter. If the environment variables are not found, a fallback value is used for the "SECRET_KEY".
-In summary, web_app.py defines routes and their corresponding functions for handling requests. It interacts with the web_main module to retrieve weather data based on user input and renders the HTML template "frizz_landing.html" with the results and dynamically generated colors.
-web_main.py
+In summary, web_app.py defines routes and their corresponding functions for handling requests. It interacts with the weather_fetch module to retrieve weather data based on user input and renders the HTML template "frizz_landing.html" with the results and dynamically generated colors.
  
 weather_fetch.py
 
 his script, weather_fetch.py, handles fetching weather data from the OpenWeatherMap API and implements the core logic for processing the fetched data.
 The script starts by loading environment variables from a .env file, which includes an "API_KEY" for the OpenWeatherMap API. It also sets up the base URL for the OpenWeatherMap API.
-There are three primary functions in this script:
-1.	get_weather_by_coordinates_or_zip(data): This function checks if the 'weather_option' from the received data is 'zip'. If it is, it calls the get_weather_by_zip function with the 'zip_code', 'start_hour', and 'end_hour' from the data. Otherwise, it calls the get_weather_by_coordinates function with 'lat', 'lon', 'start_hour', and 'end_hour' from the data.
-2.	get_weather_by_coordinates(lat, lon, start_hour=10, end_hour=15): This function takes latitude, longitude, start hour, and end hour as input. It defaults to 10am and 3pm if no hours are specified or if non-integer values are provided. It constructs a URL for the One Call API of OpenWeatherMap using the latitude, longitude, and API key. It then sends a GET request to this URL. If the request is successful (status code 200), it processes the returned weather data. It calculates average humidity and dew point for the specified hours and determines the forecast and advice based on these averages. It also assigns a photo URL based on the conditions. If the request is unsuccessful, it returns an error message.
-3.	get_weather_by_zip(zip_code, start_hour=9, end_hour=15): This function is similar to the previous one, but it takes a zip code instead of latitude and longitude. It constructs a URL for fetching weather data based on zip code, sends a GET request to this URL, and if the request is successful, extracts latitude and longitude from the response data. It then delegates to the get_weather_by_coordinates function to fetch and process weather data for the retrieved coordinates.
-In case of a failed API request, both get_weather_by_coordinates and get_weather_by_zip functions print an error message along with the response status code.
+There is one primary function in this script: 
+1.	get_weather: The get_weather function fetches weather data based on latitude (lat) and longitude (lon) coordinates. It makes a GET request to the One Call API, passing the coordinates and API key as parameters. If the GET request is successful (status code 200), it retrieves the JSON data from the response and extracts the hourly forecast data. The function then calculates the average humidity and dew point during the specified core hours of the day (default 10 AM to 3 PM). It also determines if there are hours with high humidity or dew point above predefined thresholds. Based on the average humidity and dew point, the function provides a forecast and advice for hair care, selecting an appropriate photo based on the forecast conditions. If the GET request is unsuccessful, it prints the status code and returns an error message along with a default photo. The function returns a dictionary containing the photo URL and the forecast result.
 The script also employs logging to record the URLs it fetches data from, the received data, and any errors that occur.
  
 location.js
 
 This code is responsible for getting the user's current location using the browser's geolocation API and sending it to the server for further processing. Let's break it down:
-1.	function getLocation() {...}: This is a JavaScript function that is triggered when the user clicks the element with the ID location-btn.
-2.	if (navigator.geolocation) {...}: This condition checks if the browser supports the geolocation API.
-3.	navigator.geolocation.getCurrentPosition(function(position) {...}): If geolocation is supported, this line retrieves the current position (latitude and longitude) of the user.
-4.	Inside the callback function, the latitude and longitude values are extracted from the position object.
-5.	An AJAX request is sent to the server using the XMLHttpRequest object (xhr). The request is sent as a POST request to the /location endpoint with the latitude and longitude data included in the request payload as JSON.
-6.	xhr.onload is an event listener that triggers when the AJAX request has completed. If the status code of the response is 200 (indicating a successful request), the page is reloaded using location.reload(). This is typically done to update the page with new data received from the server.
-7.	If the browser doesn't support geolocation, an alert is shown indicating that geolocation is not supported.
-8.	window.addEventListener('load', function() {...}): This event listener waits for the page to finish loading. Once loaded, it attaches an event listener to the element with the ID location-btn and calls the getLocation() function when that element is clicked.
+1.	function handleGpsFailure() : This is a JavaScript function that is called when the Geolocation API fails to get the user's current position. It logs an error message to the console for debugging purposes.
+2.	function getLocation() {...}: This is a JavaScript function that is triggered when the user clicks the element with the ID location-btn.
+3.	if (navigator.geolocation) {...}: This condition checks if the browser supports the geolocation API.
+4.	navigator.geolocation.getCurrentPosition(function(position) {...}): If geolocation is supported, this line retrieves the current position (latitude and longitude) of the user.
+5.	Inside the callback function, the latitude and longitude values are extracted from the position object.
+6.	An AJAX request is sent to the server using the XMLHttpRequest object (xhr). The request is sent as a POST request to the /weather endpoint with the latitude and longitude data included in the request payload as JSON.
+7.	xhr.onload is an event listener that triggers when the AJAX request has completed. If the status code of the response is 200 (indicating a successful request), the page is reloaded using location.reload(). This is typically done to update the page with new data received from the server.
+8.	If the browser doesn't support geolocation, an alert is shown indicating that geolocation is not supported.
+9.	window.addEventListener('load', function() {...}): This event listener waits for the page to finish loading. Once loaded, it attaches an event listener to the element with the ID location-btn and calls the getLocation() function when that element is clicked.
 In summary, this code allows the user to click a button (with ID location-btn) to obtain their current location using the browser's geolocation API. The obtained latitude and longitude coordinates are then sent to the server for further processing, potentially retrieving weather information or performing other location-based tasks.
-
 Flask's url_for function is intelligent enough to find the static files. As long as the location.js file is in a directory named static at the same level as your templates directory, Flask will be able to locate the file. The project structure should look something like this:
 frizz/
   static/
@@ -94,79 +72,28 @@ This is an HTML page that represents the user interface for the Frizz Wiz applic
 The document structure can be broken down into two main parts: the head and the body.
 In the head:
 •	It declares the HTML document's language (lang="en"), character encoding (charset="UTF-8"), and viewport settings for responsive design (name="viewport").
-•	The title tag sets the webpage title as "Frizz Wiz".
-•	The style tag includes CSS styles for various elements on the webpage such as body, form, div, img, and several specific elements with IDs like 'location-btn', 'zip_code', 'zip_code_label', 'submit-btn', 'weather_photo', and 'resultDiv'. This styling is responsible for the look and layout of the webpage.
+•	The title tag sets the webpage title as " The Frizz Wiz – Alpha [with version #]".
+•	The style tag includes CSS styles for various elements on the webpage such as body, form, div, img, and several specific elements with IDs like 'location-btn', 'submit-btn', 'weather_photo', and 'resultDiv'. This styling is responsible for the look and layout of the webpage.
 •	The head also includes scripts for jQuery and jQuery UI, useful for handling events, creating animations, and adding other interactive features.
-•	It links to a CSS file named new_slider.css from the application's static files.
+•	It links to a CSS file named styles.css from the application's static files.
 In the body:
 •	There's a top-level heading (h1) "The Frizz Wiz".
 •	A form (id="locationForm") which includes two hidden input fields for latitude and longitude, and a button to get the hair forecast.
 •	A div (id="resultDiv") which is hidden by default, and presumably displayed after a successful fetch of the hair forecast. This div includes a heading, paragraph for displaying results, and an image element for displaying a weather photo.
-•	Below this, there is a paragraph for extra spacing and a div (id="slider-container"), which contains another div (id="time-range"). Inside the time-range div, a paragraph describes the time range and a slider for users to select the range of time for which they want the forecast.
-•	At the end, three JavaScript files named new_slider.js, fetch_forecast.js, and location.js are linked from the application's static files. These scripts likely contain the JavaScript functionality for the webpage such as fetching the hair forecast, handling slider input, and getting the user's location.
+•	At the end, two JavaScript files named jquery.min.js and location.js are linked from the web and the application's static files. These scripts contain JavaScript functionality for the webpage such as fetching the hair forecast using Ajax and getting the user's location.
 Key elements and attributes such as {{ color1 }}, {{ color2 }}, {{ url_for('static', filename='css/new_slider.css') }}, etc. are placeholders which will be filled in with actual data when the HTML is rendered by a web server (like Flask). The placeholder notation {{ ... }} is common in web frameworks to signify dynamic content.
 The whole webpage is designed for the user to get their hair forecast based on their location and a chosen time range. The forecast results and a corresponding photo will be displayed on the webpage after they have been fetched from the server.
 
-Run_waitress.py 
-note: this file is only needed to run locally, not on a web server
-
-The code imports the serve function from the waitress module and the app object from the local_web_app module. Then it uses the serve function to start a Waitress server and serve the app on a specified host and port. It is only needed when the application is run locally with local_web_app (not web_app which uses gunicorn)
-Here's a breakdown of the code:
-1.	from waitress import serve: This line imports the serve function from the waitress module. Waitress is a production-quality pure-Python server for WSGI applications.
-2.	from local_web_app import app: This line imports the app object from the local_web_app module. The app object represents your WSGI application. The name local_web_app is the name of the module containing your application code.
-3.	serve(app, host='0.0.0.0', port=8000): This line starts the Waitress server and serves your application.
-•	serve: The serve function is called with the app object as the first argument.
-•	host='0.0.0.0': The host parameter specifies the IP address or hostname on which the server should listen. In this case, '0.0.0.0' means the server will listen on all available network interfaces.
-•	port=8000: The port parameter specifies the port number on which the server should listen. In this case, it is set to 8000.
-When you execute this code, Waitress will start a server and serve your application at the specified host and port.
-
- 
-wsgi.py
-wsgi.py, is an entry point for a WSGI-compatible web server to serve your web application.
-WSGI stands for Web Server Gateway Interface. It's a specification that describes how a web server communicates with web applications, and how web applications can be chained together to process one request.
-Here's what each part of the script does:
-•	from web_app import app: This line imports the Flask app object from the web_app module. The app object is an instance of class Flask. It's the central object of your application and it's used to handle the web requests that your application receives from the web server.
-•	if __name__ == "__main__": app.run(): This is the entry point of your application. If this script is run directly (as opposed to being imported), __name__ will be "__main__", and app.run() will be called. This line starts your application's development server.
-It's important to note that app.run() is not used when deploying applications to production. When deploying, you'd typically have a WSGI server such as Gunicorn or uWSGI that serves your app.
-In the context of a Flask application, a wsgi.py file usually sits at the root of the project and is used to expose the Flask application object (app) to the WSGI server. The WSGI server uses this object to run the application.
-When you use a command like gunicorn wsgi:app, it means "run the WSGI application found in the app variable in the wsgi module".
 
 fetch_forecast.js
 fetch_forecast.js, is a JavaScript code that fetches weather forecast data from a Flask web application and updates the webpage's content based on the returned forecast. Here's what each part of the script does:
-•	window.fetchWeatherForecast = function() {...}: This line defines a global function fetchWeatherForecast which fetches the weather forecast.
-Inside the function:
-1.	var startHourValue, endHourValue, lat, lon, zipCode: Variables are declared and initialized to hold the start and end hours of the forecast, latitude, longitude, and Zip code.
-2.	var data = {};: An empty object data is created to store the request parameters that will be sent to the Flask app.
-3.	var url = '/weather_general';: The URL of the endpoint in the Flask app that will provide the forecast data.
-4.	fetch(url, {...}).then(function(response) {...}).then(function(json) {...}).catch(function() {...});: This is the main part of the function where the actual HTTP request is made to the Flask app. It uses the fetch API to make a POST request to the Flask app's endpoint, sending the data object as the request body.
-•	If the request is successful, it updates the text in the weather_result element with the forecast and advice returned by the Flask app.
-•	If a photo URL is returned, it updates the source (src) of the weather_photo element with the URL and displays the photo. It then makes the resultDiv element visible to display the results.
-•	If the request fails (either the Flask app returns a non-OK HTTP status, or there's a network error), it updates the text in the weather_result element with an error message.
-•	document.addEventListener('load', function() {...});: This line sets up an event listener to call fetchWeatherForecast once the DOM has completely loaded. However, the event name should be 'DOMContentLoaded' instead of 'load' to ensure that the DOM is fully loaded before the function is executed. The load event waits for all content, including images and other resources, to be completely loaded, which might not be necessary in this case.
+Let's break down the functions:
+1.	pad(number): This function pads a number with a leading zero if it is less than 10.
+2.	window.fetchWeatherForecast(startHourValue, endHourValue): This function is called to fetch the weather forecast. It retrieves the GPS coordinates from the HTML elements with IDs 'lat' and 'lon'. It prepares the data to be sent in the AJAX request, including the latitude, longitude, start hour, and end hour. It sets up the URL for the Flask app's endpoint. Then, it fetches the weather forecast from the Flask app using the POST method and JSON data. If the response is successful, it updates the forecast and displays any associated photo in the appropriate HTML elements. If there is an error, it displays an error message.
+3.	handleButtonClick(): This function is called when the 'Get My Hair Forecast' button is clicked. It retrieves the start and end hours from a slider, logs them, and calls the fetchWeatherForecast function with the start and end hour values.
+4.	Event listener: This event listener waits for the DOM to finish loading. Once loaded, it adds a click event listener to the 'Get My Hair Forecast' button, calling the handleButtonClick function when clicked.
+In summary, the code allows the user to fetch the weather forecast based on their GPS coordinates and a specified time period. When the 'Get My Hair Forecast' button is clicked, the start and end hours are retrieved from the slider, and the fetchWeatherForecast function is called to fetch and display the weather forecast.
 
-new_slider.js
-new_slider.js sets up a range slider that users can use to select a forecast time period. The slider will display the forecast for the current day from 10 AM to 3 PM by default. When the user adjusts the slider, the timestamps below the slider will update to reflect the new forecast period.
-Here's a detailed breakdown of what each part of the script does:
-1.	var dt_from = new Date(); var dt_to = new Date();: Declares two variables representing the current date and time (this is the starting and ending time for the slider range).
-2.	dt_to.setHours(dt_from.getHours() + 24);: Updates dt_to to be 24 hours from dt_from.
-3.	var min_val = Date.parse(dt_from) / 1000 / 3600; var max_val = Date.parse(dt_to) / 1000 / 3600;: Converts dt_from and dt_to from Date objects to seconds (since 1970/01/01) then to hours and sets them as the minimum and maximum values for the slider.
-4.	The initial_from and initial_to variables are set to 10 AM and 3 PM of the current day, respectively.
-5.	function zeroPad(num, places) {...} and function formatDT(__dt) {...}: These two functions are helper functions for formatting dates and times. The zeroPad function pads a number with zeros on the left to a certain length, and the formatDT function formats a Date object into a string in the format of yyyy-mm-dd hh:mm AM/PM.
-6.	$('.slider-time').html(formatDT(initial_from)); $('.slider-time2').html(formatDT(initial_to));: Updates the HTML content of elements with classes slider-time and slider-time2 with the formatted initial time range.
-7.	$("#slider-range").slider({...});: Initializes a jQuery UI slider with the specified settings.
-•	range: true means that it's a range slider (i.e., it has two handles).
-•	min: min_val, max: max_val specifies the minimum and maximum values of the slider.
-•	step: 1 means that the slider's values increase or decrease in increments of 1.
-•	values: [initial_from.getTime() / 1000 / 3600, initial_to.getTime() / 1000 / 3600] sets the initial values of the two handles of the slider.
-•	The slide function updates the HTML content of .slider-time and .slider-time2 with the formatted current range whenever a handle is moved.
-
-update_hour_display.js
-update_hour_display.js defines a function updateHourDisplay() that updates the display of start and end hours on the webpage.
-Here is what each line does:
-1.	var startHourValue = document.getElementById('start_hour').value; var endHourValue = document.getElementById('end_hour').value;: Gets the values of the start_hour and end_hour elements from the HTML document and assigns them to startHourValue and endHourValue respectively.
-2.	var startHourDate = new Date(startHourValue); var endHourDate = new Date(endHourValue);: Converts the startHourValue and endHourValue from string to JavaScript Date object.
-3.	document.getElementById('start_hour_display').innerText = startHourDate.toLocaleString('en-US'); document.getElementById('end_hour_display').innerText = endHourDate.toLocaleString('en-US');: Converts the startHourDate and endHourDate to string format using toLocaleString('en-US') and updates the inner text of the start_hour_display and end_hour_display elements.
-Finally, an event listener is set up on the DOMContentLoaded event, which is fired when the initial HTML document has been completely loaded and parsed. When this event is fired, it calls the updateHourDisplay function and also adds event listeners to the start_hour and end_hour elements to call updateHourDisplay whenever their values change. This ensures that the displayed time is always up-to-date with the selected start and end hours.
 
  
 Firewall & Other Tools
@@ -185,20 +112,7 @@ Allowing SSH access to your server from the internet can be a security risk. Ens
 Key-based authentication has been used. My identification has been saved in C:\Users\matta/.ssh/id_rsa.
 Your public key has been saved in C:\Users\matta/.ssh/id_rsa.pub.
 The key fingerprint is:
-SHA256:QC2Bd9HyH4fmp4F5PvNxEhNNkE6Eqid/VousUuGJFLc alevy.matthew@gmail.com
-The key's randomart image is:
-+---[RSA 4096]----+
-|     .oo.o   ooo.|
-|    ..o = o . oo |
-|     ..o = o +. .|
-|       .. E + o. |
-|       .S+ O oo  |
-|        + B = oo |
-|         = + *o..|
-|        . . X .+ |
-|         ..+ +.  |
-+----[SHA256]-----+
-
+[ommited for security reasons]
 
 2.	Fail2Ban: Fail2Ban is a tool that can automatically update firewall rules to ban IP addresses that make too many failed login attempts. 
 1.	If it needs to be reinstalled: sudo apt install fail2ban
@@ -232,17 +146,16 @@ pip install gunicorn
 The Algorithm
 1.	Determining the Forecast Period:
 •	By default, the program will provide a weather forecast for the 'upcoming day' based on the time the user checks the app.
-•	If checked in the morning (let's say before 10 AM), the app will provide a forecast from 8 AM that day to 8 PM of the same day.
-•	If checked in the evening (let's say after 10 AM), the forecast will span the remainder of that day and the entirety of the next day.
-•	The program will also provide a 7-day forecast, allowing users to select a different day or time period.
+•	The app will provide a forecast from 10 AM that day to 3 PM of the same day.
+•	Future version of the program will also provide a 48-hour forecast, allowing users to select a different day or time period and visualize the weather conditions during the upcoming day.
 2.	Highlighting Critical Periods:
-•	The app will analyze the forecast data for the next 24 and 72 hours to identify any 'critical periods' - times when humidity or wind speed will be extremely high or low.
+•	The app will analyze the forecast data for the next 24 (and 72 hours in future versions) to identify any 'critical periods' - times when humidity or dew point (and later wind speed) will be extremely high or low.
 •	Users will be notified about these critical periods, which can help them plan their hair care and styling accordingly.
-3.	Weekly Snapshot:
+3.	Weekly Snapshot (future versions):
 •	In addition to the daily forecast, the app will provide a snapshot for the next 5 to 7 days.
 •	This snapshot will highlight any particularly good or bad days for certain hairstyles based on the expected humidity and wind speed.
 •	For example, it could tell a user "next Tuesday will be a great day for straight hair" or "next Thursday will be a very tough day for straight hair due to high humidity and wind speeds".
-4.	User-Centric Customizations:
+4.	User-Centric Customizations (future versions):
 •	Users can adjust their 'hair check' times according to their routine, enabling the app to provide a more personalized forecast.
 •	Based on the forecast and the user's specified schedule, the app will offer custom recommendations on the optimal hair care/styling for that day.
  
@@ -466,7 +379,7 @@ The code can be updated via Git using a public/private key. The key is saved in 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC1UTLqblrHtgdLm4tNACjaOIg5dHR90ek3OleYn3>
 
  
-Encapsulated Summary (for ChatGPT)
+Encapsulated Summary (for ChatGPT – requires update)
 Frizz-Wiz is a web application running on an Nginx server. The application is configured to be accessible from the internet via the domain names frizz-wiz.com and www.frizz-wiz.com.
 Nginx Configuration is stored in the file /etc/nginx/sites-available/default and /etc/nginx/nginx.conf. The file has include statements that also reference /etc/nginx/mime.types; /etc/nginx/conf.d/*.conf; and /etc/nginx/sites-enabled/*; These configuration files specify how incoming HTTP requests are handled by the server. The server listens on port 80, and it is configured to proxy requests to the application running on localhost (127.0.0.1) port 8000. It also includes headers to provide information about the original client request, as it proxies the request to the application. The server is also configured to serve the directory /.well-known/acme-challenge/ from /var/www/html, which is used for the Let's Encrypt SSL certificate verification process.
 
@@ -494,4 +407,3 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC1UTLqblrHtgdLm4tNACjaOIg5dHR90ek3OleYn3>
 3. 	wsgi.py: This Python file is the entry point for the application when it's run with a WSGI server like Gunicorn. It imports the Flask application instance (app) from the web_app module. This app is expected to be a Flask instance. It checks if this script is being run directly or being imported. The code inside this block runs only when the script is run directly. It starts the Flask's built-in development server. 
 4.	location.js: This JavaScript file is responsible for handling geolocation functionality in the web page. It checks if the browser supports geolocation and, if so, retrieves the current latitude and longitude coordinates. It then sends this data to the server using an AJAX request to the /location route. Upon receiving a successful response (status code 200), it triggers a page reload to display the updated weather information. This file connects with the Python script web_app.py through the AJAX request and response handling.
 5.	frizz_landing.html: This HTML template is the main page of the Frizz Wiz application. It includes a form where users can enter a zip code or click a button to use geolocation. The form submits a POST request to the / route in the Flask application. It also includes placeholders for displaying the weather result, photo, and dynamically generated colors. The template interacts with the Python script web_app.py by receiving the weather result and photo data to be rendered in the appropriate sections.
-# frizz
