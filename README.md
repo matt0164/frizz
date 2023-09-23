@@ -1,5 +1,9 @@
 Frizz-Wiz Application Documentation
-Version 0.02 running with GPS as of 6/24/23 and without slider 
+Version 0.03 running with GPS as of 6/24/23 and without slider 
+
+Versions:
+0.3 - adds context and content on html to describe the Curly Girl method and links to buy the book and learn more.
+
 Overview
 Frizz-Wiz is a web application running on an Nginx server. The application is configured to be accessible from the internet via app.frizz-wiz.com with the domain names frizz-wiz.com and www.frizz-wiz.com.
 The Application Code
