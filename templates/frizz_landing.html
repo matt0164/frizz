@@ -3,12 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Frizz Wiz - Alpha v 0.02</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Frizz Wiz</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, {{ color1 }}, {{ color2 }});
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form, div {
+            width: 80%;
+            text-align: center;
+        }
+        img {
+            height: auto;
+            object-fit: cover;
+        }
+        #location-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+        #zip_code, #zip_code_label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #submit-btn {
+            width: 200px;
+            height: 75px;
+            color: black;
+            font-size: 16pt;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        #weather_photo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        #resultDiv {
+            display: none;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/new_slider.css') }}">
+
 </head>
 
 <body>
-    <h1>The Frizz Wiz - Alpha v 0.02</h1>
+    <h1>The Frizz Wiz Alpha v0.03</h1>
 
     <form id="locationForm" method="post" action="javascript:void(0);">
 
@@ -25,11 +80,51 @@
         <img id="weather_photo" alt="Hair Day Image" style="display: none;">
     </div>
 
-    <body style="background: linear-gradient(to right, {{ color1 }}, {{ color2 }});">
+    <div id="Aboutpage">
+
+        <h3>Ok, my hair is a hot mess, how can I fix it?</h3>
+        <p>
+        Frizz Wiz uses concepts found in The Curly Girl Method.
+        If you're interested in learning more about The Curly Girl Method, I recommend you
+        buy the book through Amazon
+        <a href="https://www.amazon.com/Curly-Girl-Handbook-Michele-Bender/dp/076115678X" target="_blank">here</a>.
+
+        <h3>What is a The Curly Girl Method?</h3>
+        The Curly Girl Method is an approach to hair care designed by author Lorraine Massey for natural hair (coils, waves, and curls) that has not been chemically relaxed.
+        This method discourages the daily use of sulfate shampoo, which is considered too harsh for curly hair.
+        Among other things, it calls for the use of a cleansing conditioner in place of shampoo (also called "conditioner washing" or "co-washing"),
+        no silicones (used in many commercial conditioners and styling products), the use of a diffuser when blowdrying, and no combs, brushes, or
+        terrycloth towels. It also includes tips for using hair gel and other styling products. The aim in general is to treat naturally curly hair gently,
+        minimizing damage to the hair cuticle; to keep it moisturized, since curly hair is more prone to dryness than straight hair; and, perhaps most significantly,
+        to accentuate rather than interfere with the hair's natural curl pattern. The Andre Walker Hair Typing System and Fia's hair typing system groups curly
+        types from 2 to 4 and A to C (representing increasing tightness of the curl) with type 1 representing the complete absence of curl (or straight hair).
+        Type 2 typically encompasses varying degrees of wavy hair, Type 3 contains loose, spiraled curls, and Type 4 includes tighter curls, kinks, and coils.
+        Type A tends to be less defined than B and C, and when going from A to C the hair is more likely to be well-defined.
+    </p>
+        <h3>Where can I learn more?</h3>
+    <p>
+        Not interested in reading? I get it. The handbook is great but if you don't have time, you can learn more
+        about the method by visiting the <a href="https://en.wikipedia.org/wiki/Curly_Girl_Method#:~:text=Among%20other%20things%2C%20it%20calls,%2C%20brushes%2C%20or%20terrycloth%20towels"
+                                            target="_blank">Curly Girl Method Wikipedia page</a>.
+        Or you can google curly girl and get lot's of great information - all for free! I am biased but if you are
+        serious about your hair, I recommend the book.*
+
+    </p>
+        <h3>What the heck is a Humectant?</h3>
+        <p>Basically any substance that attracts water. You can find humectants in shampoos, conditioners, lotions, and other products.
+            Learn more <a href="https://www.webmd.com/skin-problems-and-treatments/what-is-a-humectant" target="_blank">here</a>.</p>
+        <br>
+        <br>
+        <p style="font-size: 12px;">
+        *Note: the creator of this app earns a small commission on any sales generated through this link. We are a small family business. We all appreciate the financial support you provide to bring you these services by purchasing Curly Girl products through these Amazon affiliate links!
+        </p>
+
+    </div>
 
     <p> </p>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='new_slider.js') }}"></script>
+    <script src="{{ url_for('static', filename='fetch_forecast.js') }}"></script>
     <script src="{{ url_for('static', filename='location.js') }}"></script>
 
 </body>
