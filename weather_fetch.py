@@ -1,5 +1,8 @@
+# weather_fetch.py pulls in all of the weather data from an API and does the core logic
+# processing, and passes the data to the other modules
 import os
 import requests
+import datetime
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -7,14 +10,30 @@ load_dotenv()
 
 # Get the API key from environment variable
 API_KEY = os.environ.get("API_KEY")
+#print("API key: ", API_KEY) #prints API key if there are issues with it
 
 # Base URL of the OpenWeatherMap API
 BASE_URL = "https://api.openweathermap.org/data/3.0/"
 
-def get_weather(lat, lon, start_hour=10, end_hour=15):
+def get_weather_by_coordinates_or_zip(data):
+
+    if data.get('weather_option') == 'zip':
+        return get_weather_by_zip(data.get('zip_code'), data.get('start_hour'), data.get('end_hour'))
+    else:
+        return get_weather_by_coordinates(data.get('lat'), data.get('lon'), data.get('start_hour'), data.get('end_hour'))
+
+def get_weather_by_coordinates(lat, lon, start_hour=10, end_hour=15):
+
+    if not isinstance(start_hour, int):  # Check if start_hour is not an integer
+        start_hour = 0  # or some other default value
+
+    if not isinstance(end_hour, int):  # Check if end_hour is not an integer
+        end_hour = 24  # or some other default value
 
     # URL for the One Call API
     url = BASE_URL + "onecall?lat=" + str(lat) + "&lon=" + str(lon) + "&appid=" + API_KEY + "&units=imperial"
+    # Print the constructed URL (uncomment if troubleshooting API)
+    #print("URL: ", url)
 
     # Send a GET request to the API
     response = requests.get(url)
@@ -40,51 +59,20 @@ def get_weather(lat, lon, start_hour=10, end_hour=15):
         avg_humidity = round(sum([forecast["humidity"] for forecast in core_day_forecast]) / len(core_day_forecast), 1)
         avg_dew_point = round(sum([forecast["dew_point"] for forecast in core_day_forecast]) / len(core_day_forecast),1)
 
-        # Find hours with high humidity and dew point
-        high_humidity_hours = [(i+start_hour, forecast["humidity"]) for i, forecast in enumerate(core_day_forecast) if forecast["humidity"] > high_humidity]
-        high_dew_point_hours = [(i+start_hour, forecast["dew_point"]) for i, forecast in enumerate(core_day_forecast) if forecast["dew_point"] > high_dew_point]
-
-        warning_message = ""
-        if high_humidity_hours or high_dew_point_hours:
-            warning_hours = high_humidity_hours + high_dew_point_hours
-            warning_hours.sort()  # sort by hour
-            warning_message = "\nWarning: There are periods with high humidity or dew point during the day at hours " + ', '.join([f"{hour[0]} (Humidity: {hour[1]}%)" for hour in warning_hours]) + ". Be aware."
-
         # Determine the forecast based on humidity and dew point
         if avg_humidity > high_humidity:
             if avg_dew_point > high_dew_point:
                 photo = "https://images.pexels.com/photos/3768905/pexels-photo-3768905.jpeg"
-                result = f"""
-                Forecast: High humidity and high dew point.
-                Average humidity: {avg_humidity}%, dew point: {avg_dew_point}°F.
-                Advice: Use a product that contains a film-forming humectant. 
-                Apply a leave-in conditioner, then a styling product containing film-forming humectant. 
-                Finally, scrunch your hair to help define your curls.""".strip()
-                # The strip() function is used to remove the leading and trailing whitespace.
-
+                result = f"Forecast: High humidity and high dew point. \nAverage humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. \nCurly Girl's Advice: Use a product that contains a film-forming humectant. Apply a leave-in conditioner, then a styling product containing film-forming humectant. Finally, scrunch your hair to help define your curls."
             else:
                 photo = "https://images.pexels.com/photos/16210166/pexels-photo-16210166/free-photo-of-a-woman-lying-down.jpeg"
-                result = f"""Forecast: High humidity and low dew point. 
-                Average humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. 
-                Advice: Use a product that contains both a film-forming humectant and an emollient. 
-                Apply a leave-in conditioner, then a styling product containing both ingredients.
-                Finally, scrunch your hair to help define your curls.""".strip()
-
+                result = f"Forecast: High humidity and low dew point. \nAverage humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. \nCurly Girl's Advice: Use a product that contains both a film-forming humectant and an emollient. Apply a leave-in conditioner, then a styling product containing both ingredients. Finally, scrunch your hair to help define your curls."
         elif avg_dew_point > high_dew_point:
             photo = "https://images.pexels.com/photos/3768905/pexels-photo-3768905.jpeg"
-            result = f"""
-            Forecast: Low humidity and high dew point. 
-            Average humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. 
-            Advice: Use a product that contains an emollient. 
-            Apply a leave-in conditioner, then a styling product containing emollient. 
-            Finally, diffuse your hair or air dry it with a diffuser attachment to help add volume.""".strip()
+            result = f"Forecast: Low humidity and high dew point. \nAverage humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. \nCurly Girl's Advice: Use a product that contains an emollient. Apply a leave-in conditioner, then a styling product containing emollient. Finally, diffuse your hair or air dry it with a diffuser attachment to help add volume."
         else:
             photo = "https://images.pexels.com/photos/16210166/pexels-photo-16210166/free-photo-of-a-woman-lying-down.jpeg"
-            result = f"""
-            Forecast: Low humidity and low dew point. 
-            Average humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. {warning_message} 
-            Advice: No special styling is required. Keep your hair protected from the sun and wind,
-             apply styling products while your hair is still damp and avoid over-styling.""".strip()
+            result = f"Forecast: Low humidity and low dew point. \nAverage humidity: {avg_humidity}%, dew point: {avg_dew_point}°F. \nCurly Girl's Advice: No special styling is required. Keep your hair protected from the sun and wind, apply styling products while your hair is still damp and avoid over-styling."
 
         return {
             "photo": photo,
@@ -93,6 +81,45 @@ def get_weather(lat, lon, start_hour=10, end_hour=15):
     else:
         # If the GET request is unsuccessful, print the status code
         print("Error:", response.status_code)
-        error_message = "Could not fetch the weather data."
+        # error_message = "Could not fetch the weather data."
         default_photo = "https://images.pexels.com/photos/1049687/pexels-photo-1049687.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         return {"result": error_message, "photo": default_photo}
+
+import logging
+
+def get_weather_by_zip(zip_code, start_hour=9, end_hour=15):
+
+    if not isinstance(start_hour, int):  # Check if start_hour is not an integer
+        start_hour = 0  # or some other default value
+
+    if not isinstance(end_hour, int):  # Check if end_hour is not an integer
+        end_hour = 24  # or some other default value
+
+    # URL for the Weather API
+    url = BASE_URL + "weather?zip=" + zip_code + "&appid=" + API_KEY + "&units=imperial"
+    logging.info(f'Fetching weather data from: {url}')
+
+    # Print the constructed URL
+    print("Geo URL: ", url)
+
+    # Send a GET request to the API
+    response = requests.get(url)
+
+    # If the GET request is successful, the status code will be 200
+    if response.status_code == 200:
+        # Get the JSON data from the response
+        weather_data = response.json()
+        logging.info(f'Received weather data: {weather_data}')
+
+        # Extract the coordinates from the weather data
+        lat, lon = weather_data["coord"]["lat"], weather_data["coord"]["lon"]
+
+        # Get the weather forecast for the coordinates and the core hours
+        return get_weather_by_coordinates(lat, lon, start_hour, end_hour)
+    else:
+        # If the GET request is unsuccessful, print the status code
+        logging.error(f"Error {response.status_code} when fetching weather data. Full response: {response.text}")
+        return {
+            "photo": None,
+            "result": f"Could not fetch the weather data. Error: {response.status_code}"
+        }
