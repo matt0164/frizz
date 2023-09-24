@@ -21,7 +21,7 @@
             height: auto;
             object-fit: cover;
         }
-        #location-btn {
+        #fetch_weather_button {
             width: 200px;
             height: 75px;
             color: black;
@@ -49,5 +49,65 @@
         }
         #resultDiv {
             display: none;
+        }
+
+        #buy_book_button {
+            background-color: #3498db; /* Background color */
+            color: #ffffff; /* Text color */
+            border: 1px solid #2980b9; /* Border color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            margin: 10px; /* Margin around the button */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+        }
+
+        #buy_book_button:hover {
+            background-color: #2980b9; /* New background color on hover */
+        }
+
+        #buy_humectant_button {
+            background-color: #3498db; /* Background color */
+            color: #ffffff; /* Text color */
+            border: 1px solid #2980b9; /* Border color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            margin: 10px; /* Margin around the button */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+        }
+
+        #buy_humectant_button:hover {
+            background-color: #2980b9; /* New background color on hover */
+        }
+
+        #buy_conditioner_thick_button {
+            background-color: #3498db; /* Background color */
+            color: #ffffff; /* Text color */
+            border: 1px solid #2980b9; /* Border color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            margin: 10px; /* Margin around the button */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+        }
+
+        #buy_conditioner_thick_button:hover {
+            background-color: #2980b9; /* New background color on hover */
+        }
+
+        #buy_conditioner_fine_button {
+            background-color: #3498db; /* Background color */
+            color: #ffffff; /* Text color */
+            border: 1px solid #2980b9; /* Border color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            margin: 10px; /* Margin around the button */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+        }
+
+        #buy_conditioner_fine_button:hover {
+            background-color: #2980b9; /* New background color on hover */
         }
     </style>
